@@ -14,3 +14,7 @@ app = FastAPI(lifespan=lifespan,
         version="1.0.0")
 app.include_router(auth.router)
 app.include_router(chats.router)
+
+@app.get("/")
+async def root():
+    return {"status": "welcome to ChatterBox"}
