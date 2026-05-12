@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
-from schemas.User import UserDB, UserUpdate
+from schemas.User import UserDB
 from database.connection import db
 from services.auth_services import register_a, login_a, users_a, me, delete_u, promote_user, find_user
 from core.security import decode_token, verify_admin
+from typing import Optional
 
 router = APIRouter()
 
@@ -24,7 +25,7 @@ async def login(form: OAuth2PasswordRequestForm = Depends(), db = Depends(db)):
         raise HTTPException(status_code=401, detail="Unauthorized")   
 
 @router.get("/users")
-async def users( search: str, db = Depends(db), current = Depends(decode_token)):
+async def users( search: Optional[str] = None, db = Depends(db), current = Depends(decode_token)):
     if search:
         return find_user(db, search)
     return users_a(db, current)
