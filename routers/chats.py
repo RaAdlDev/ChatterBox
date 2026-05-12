@@ -12,7 +12,6 @@ LocalSesion = sessionmaker(autoflush=False, autocommit=False, bind=engine)
 
 @router.websocket("/ws/{user_id}")
 async def message( user_id: str, websocket: WebSocket, current: dict = Depends(get_current)  ):
-    print(f"current: {current}, user_id: {user_id}")
     
     db = LocalSesion() 
 
