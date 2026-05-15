@@ -16,27 +16,26 @@ def register_a(data, db: Session):
     return None
 
 def login_a(form, db: Session):
-    verify = db.execute(select(User.user_id, User.password, User.role).where(User.username == form.username)).all()
+    verify = db.execute(select(User).where(User.username == form.username)).scalar_one_or_none()
     if verify:
-        data = verify[0]
-        v_password = verify_password(form.password, data[1])
+        v_password = verify_password(form.password, verify.password)
         if v_password:
-            return {"acces_token": create_token({"sub": data[0], "role": data[2]}), "token_type": "bearer"}
+            return {"acces_token": create_token({"sub": verify.user_id}), "token_type": "bearer"}
         return None
     return None
 
 
 def users_a(db: Session, current:str):
     users = db.execute(select(User.username, User.user_id).where(User.user_id != current)).all()
-    return {"users": [{"username:": user.username, "id": user.user_id}for user in users]}
+    return {"users": [{"username": user.username, "id": user.user_id}for user in users]}
 
 def me(db:Session, current:str):
     user = db.execute(select(User.username, User.user_id, User.email).where(User.user_id == current)).all()
-    return {"user": [{"username:": u.username, "id": u.user_id, "email": u.email}for u in user]}
+    return {"user": [{"username": u.username, "id": u.user_id, "email": u.email}for u in user]}
 
 def find_user(db: Session, search: str):
     users = db.execute(select(User.username, User.user_id).where(User.username.ilike(f"%{search}%"))).all()
-    return {"users": [{"username:": u.username, "id": u.user_id}for u in users]}
+    return {"users": [{"username": u.username, "id": u.user_id}for u in users]}
 
 def delete_u(db: Session, user_id:str):
     out = db.get(User, user_id)

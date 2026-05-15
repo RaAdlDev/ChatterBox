@@ -4,7 +4,6 @@ from core.settings import settings
 engine = create_engine(settings.database_url)
 
 LocalSesion = sessionmaker(autoflush=False, autocommit=False, bind=engine)
-#, connect_args={"check_same_thread": False}
 
 def db():
     db = LocalSesion()
