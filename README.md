@@ -31,7 +31,7 @@ ChattBox is a robust RESTful API designed for real-time communication using WebS
 
 ---
 
- **Live Demo:** (https://chatterboxapiwebsovcketsraadldev.onrender.com)
+ **Live Demo:** (https://chatterboxapi-fpdz.onrender.com)
  
  **Register Example**
  <img width="711" height="394" alt="example chattbox" src="https://github.com/user-attachments/assets/4e0c7036-41c7-45e3-bbc8-72382950c7d2" />
