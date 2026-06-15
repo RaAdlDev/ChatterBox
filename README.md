@@ -5,7 +5,7 @@ ChattBox is a robust RESTful API designed for real-time communication using WebS
 ---
 
 
-## ✨ Key Features
+## Key Features
 
 * **Real-Time Messaging:** Bidirectional communication via WebSockets for an instantaneous chat experience.
 * **Data Persistence:** Full storage of chat rooms and message history using PostgreSQL.
